@@ -31,4 +31,4 @@ firstProject.addTask(firstTask);
 
 console.log(firstProject);
 console.log(firstProject.returnTaskList());
-console.log(firstTask);
+console.log(firstTask.returnPriority());

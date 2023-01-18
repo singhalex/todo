@@ -1,0 +1,42 @@
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 100px 1fr;
+}
+
+#title {
+  grid-area: 1 / 1 / 2 / 3;
+  background-color: lightblue;
+}
+
+#title > p {
+  font-family: "Dela Gothic One", cursive;
+  color: white;
+  text-shadow: 2px 2px #464545;
+  font-size: 4.5rem;
+  vertical-align: top;
+  padding-left: 2rem;
+}
+
+#nav-bar {
+  grid-area: 2 / 1 / 3 / 2;
+  background-color: lightcoral;
+}
+
+#content-area {
+  grid-area: 2 / 2 / 3 / 3;
+  background-color: lightgreen;
+}
