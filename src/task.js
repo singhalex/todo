@@ -1,11 +1,11 @@
 const Task = (title, description, dueDate, priority) => {
-  const returnTitle = () => title;
-  const returnDescription = () => description;
-  const returnDueDate = () => dueDate;
-  const returnPriority = () => priority;
+  const getTitle = () => title;
+  const getDescription = () => description;
+  const getDueDate = () => dueDate;
+  const getPriority = () => priority;
 
   return {
-    returnTitle, returnDescription, returnDueDate, returnPriority,
+    getTitle, getDescription, getDueDate, getPriority,
   };
 };
 

@@ -1,13 +1,13 @@
 const Project = (title) => {
-  const returnTitle = () => title;
+  const getTitle = () => title;
   const taskList = [];
-  const returnTaskList = () => taskList;
+  const getTaskList = () => taskList;
 
   const addTask = (task) => {
     taskList.push(task);
   };
 
-  return { returnTitle, addTask, returnTaskList };
+  return { getTitle, addTask, getTaskList };
 };
 
 export default Project;
