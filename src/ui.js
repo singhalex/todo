@@ -1,4 +1,3 @@
-const sideBar = document.querySelector('#project-container');
 const projectList = [];
 
 const addToProjectList = (project) => {
@@ -9,6 +8,22 @@ function deleteProject(index) {
   projectList.splice(index, 1);
 }
 
+// Populate the task area with a project's task list
+const taskArea = document.querySelector('#content-area');
+function buildTaskPage(index) {
+  // Clear task area
+  taskArea.innerHTML = '';
+
+  // Loop through task list to build cards
+  projectList[index].getTaskList().forEach((task) => {
+    const taskCard = document.createElement('div');
+    taskCard.setAttribute('class', 'card');
+    taskCard.innerText = task.getTitle();
+    taskArea.appendChild(taskCard);
+  });
+}
+
+const sideBar = document.querySelector('#project-container');
 const buildSideBar = () => {
   // Clear out the sidebar
   sideBar.innerHTML = '';
@@ -21,8 +36,16 @@ const buildSideBar = () => {
     projectCard.dataset.index = counter;
     projectCard.innerText = project.getTitle();
 
-    // Delete the card when clicked and rebuild the sidebar
     projectCard.addEventListener('click', () => {
+      buildTaskPage(projectCard.dataset.index);
+    });
+
+    // Add a delete button and rebuild sidebar
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = 'X';
+    projectCard.appendChild(deleteButton);
+    deleteButton.addEventListener('click', (event) => {
+      event.stopPropagation();
       deleteProject(projectCard.dataset.index);
       buildSideBar();
     });
@@ -32,8 +55,6 @@ const buildSideBar = () => {
   });
 };
 
-const getProjectList = () => projectList;
-
-const ui = { addToProjectList, buildSideBar, getProjectList };
+const ui = { addToProjectList, buildSideBar };
 
 export default ui;
