@@ -6,7 +6,11 @@ import ui from './ui';
 
 const newProjectButton = document.querySelector('#new-project');
 const projectNameInput = document.querySelector('#project-name');
-newProjectButton.addEventListener('click', () => {
+const newProjectForm = document.querySelector('#new-project-form');
+console.log(newProjectForm);
+
+newProjectButton.addEventListener('click', (e) => {
+  e.preventDefault();
   const newProject = Project(projectNameInput.value);
 
   // Placeholder task
