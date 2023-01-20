@@ -4,11 +4,10 @@ import Task from './task';
 import Project from './project';
 import ui from './ui';
 
+const activeProject = '';
+
 const newProjectButton = document.querySelector('#new-project');
 const projectNameInput = document.querySelector('#project-name');
-const newProjectForm = document.querySelector('#new-project-form');
-console.log(newProjectForm);
-
 newProjectButton.addEventListener('click', (e) => {
   e.preventDefault();
   const newProject = Project(projectNameInput.value);
@@ -23,3 +22,5 @@ newProjectButton.addEventListener('click', (e) => {
   ui.buildSideBar();
   projectNameInput.value = '';
 });
+
+// const taskAreaContainer =

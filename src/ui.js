@@ -10,9 +10,12 @@ function deleteProject(index) {
 
 // Populate the task area with a project's task list
 const taskArea = document.querySelector('#content-area');
+function clearTaskArea() {
+  taskArea.innerHTML = '';
+}
 function buildTaskPage(index) {
   // Clear task area
-  taskArea.innerHTML = '';
+  clearTaskArea();
 
   // Loop through task list to build cards
   projectList[index].getTaskList().forEach((task) => {
@@ -38,6 +41,10 @@ const buildSideBar = () => {
 
     projectCard.addEventListener('click', () => {
       buildTaskPage(projectCard.dataset.index);
+      projectList.forEach((item) => {
+        item.isDisplayed(false);
+      });
+      project.isDisplayed(true);
     });
 
     // Add a delete button and rebuild sidebar
@@ -46,6 +53,9 @@ const buildSideBar = () => {
     projectCard.appendChild(deleteButton);
     deleteButton.addEventListener('click', (event) => {
       event.stopPropagation();
+      if (projectList[projectCard.dataset.index].getDisplayed() === true) {
+        clearTaskArea();
+      }
       deleteProject(projectCard.dataset.index);
       buildSideBar();
     });
