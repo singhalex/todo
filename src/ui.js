@@ -1,15 +1,6 @@
 import Task from './task';
 import Project from './project';
-
-const projectList = [];
-
-const addToProjectList = (project) => {
-  projectList.push(project);
-};
-
-function deleteProject(index) {
-  projectList.splice(index, 1);
-}
+import projectList from './projectlist';
 
 // Populate the task area with a project's task list
 const taskArea = document.querySelector('#content-area');
@@ -20,7 +11,7 @@ function buildTaskPage(index) {
   clearTaskArea();
 
   // Loop through task list to build cards
-  projectList[index].getTaskList().forEach((task) => {
+  projectList.getList()[index].getTaskList().forEach((task) => {
     const taskCard = document.createElement('div');
     taskCard.setAttribute('class', 'card');
     taskCard.innerText = task.getTitle();
@@ -35,7 +26,7 @@ const buildSideBar = () => {
 
   // Create a card for each project in the array
   let counter = 0;
-  projectList.forEach((project) => {
+  projectList.getList().forEach((project) => {
     const projectCard = document.createElement('div');
     projectCard.setAttribute('class', 'project-card');
     projectCard.dataset.index = counter;
@@ -43,7 +34,7 @@ const buildSideBar = () => {
 
     projectCard.addEventListener('click', () => {
       buildTaskPage(projectCard.dataset.index);
-      projectList.forEach((item) => {
+      projectList.getList().forEach((item) => {
         item.setDisplayed(false);
       });
       project.setDisplayed(true);
@@ -55,10 +46,10 @@ const buildSideBar = () => {
     projectCard.appendChild(deleteButton);
     deleteButton.addEventListener('click', (event) => {
       event.stopPropagation();
-      if (projectList[projectCard.dataset.index].getDisplayed() === true) {
+      if (projectList.getList()[projectCard.dataset.index].getDisplayed() === true) {
         clearTaskArea();
       }
-      deleteProject(projectCard.dataset.index);
+      projectList.deleteProject(projectCard.dataset.index);
       buildSideBar();
     });
 
@@ -70,12 +61,10 @@ const buildSideBar = () => {
 // Adds a task to the displayed project and displays it in the task area
 const addTask = () => {
   let indexCounter = 0;
-  projectList.forEach((project) => {
+  projectList.getList().forEach((project) => {
     if (project.getDisplayed() === true) {
       const newTask = Task(document.querySelector('#task-input').value, 'test', 'more test', false);
       project.addTask(newTask);
-      console.log(projectList[indexCounter].getTitle());
-      console.log(projectList);
       buildTaskPage(indexCounter);
       document.querySelector('#task-input').value = '';
     }
@@ -95,7 +84,7 @@ function createNewProjectPrompt() {
     addButton.addEventListener('click', () => {
       e.preventDefault();
       const newProject = Project(projectNameInput.value);
-      addToProjectList(newProject);
+      projectList.addToList(newProject);
       buildSideBar();
       createNewProjectPrompt();
     });
@@ -108,7 +97,7 @@ function createNewProjectPrompt() {
 }
 
 const ui = {
-  addToProjectList, buildSideBar, addTask, createNewProjectPrompt,
+  buildSideBar, addTask, createNewProjectPrompt,
 };
 
 export default ui;
