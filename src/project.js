@@ -4,7 +4,7 @@ const Project = (title) => {
 
   let displayed = false;
   const getDisplayed = () => displayed;
-  const isDisplayed = (trueFalse) => {
+  const setDisplayed = (trueFalse) => {
     displayed = trueFalse;
   };
   const getTitle = () => title;
@@ -14,7 +14,7 @@ const Project = (title) => {
   };
 
   return {
-    getTitle, addTask, getTaskList, isDisplayed, getDisplayed,
+    getTitle, addTask, getTaskList, setDisplayed, getDisplayed,
   };
 };
 

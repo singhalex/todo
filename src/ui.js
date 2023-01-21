@@ -17,7 +17,6 @@ function clearTaskArea() {
   taskArea.innerHTML = '';
 }
 function buildTaskPage(index) {
-  // Clear task area
   clearTaskArea();
 
   // Loop through task list to build cards
@@ -45,9 +44,9 @@ const buildSideBar = () => {
     projectCard.addEventListener('click', () => {
       buildTaskPage(projectCard.dataset.index);
       projectList.forEach((item) => {
-        item.isDisplayed(false);
+        item.setDisplayed(false);
       });
-      project.isDisplayed(true);
+      project.setDisplayed(true);
     });
 
     // Add a delete button and rebuild sidebar
@@ -68,13 +67,15 @@ const buildSideBar = () => {
   });
 };
 
+// Adds a task to the displayed project and displays it in the task area
 const addTask = () => {
+  let indexCounter = 0;
   projectList.forEach((project) => {
-    let indexCounter = 0;
     if (project.getDisplayed() === true) {
       const newTask = Task(document.querySelector('#task-input').value, 'test', 'more test', false);
       project.addTask(newTask);
-      console.log(projectList[indexCounter]);
+      console.log(projectList[indexCounter].getTitle());
+      console.log(projectList);
       buildTaskPage(indexCounter);
       document.querySelector('#task-input').value = '';
     }
@@ -88,9 +89,9 @@ function createNewProjectPrompt() {
   const newProjectPromptButton = document.querySelector('#test1');
   newProjectPromptButton.addEventListener('click', (e) => {
     e.preventDefault();
-    projectPrompt.innerHTML = '<input type="text" id="project-name1" /><br><button id="add">Add</button><button id="cancel">Cancel</button>';
+    projectPrompt.innerHTML = '<input type="text" id="project-name" /><br><button id="add">Add</button><button id="cancel">Cancel</button>';
     const addButton = document.querySelector('#add');
-    const projectNameInput = document.querySelector('#project-name1');
+    const projectNameInput = document.querySelector('#project-name');
     addButton.addEventListener('click', () => {
       e.preventDefault();
       const newProject = Project(projectNameInput.value);
