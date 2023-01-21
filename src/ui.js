@@ -1,3 +1,6 @@
+import Task from './task';
+import Project from './project';
+
 const projectList = [];
 
 const addToProjectList = (project) => {
@@ -65,6 +68,46 @@ const buildSideBar = () => {
   });
 };
 
-const ui = { addToProjectList, buildSideBar };
+const addTask = () => {
+  projectList.forEach((project) => {
+    let indexCounter = 0;
+    if (project.getDisplayed() === true) {
+      const newTask = Task(document.querySelector('#task-input').value, 'test', 'more test', false);
+      project.addTask(newTask);
+      console.log(projectList[indexCounter]);
+      buildTaskPage(indexCounter);
+      document.querySelector('#task-input').value = '';
+    }
+    indexCounter += 1;
+  });
+};
+
+function createNewProjectPrompt() {
+  const projectPrompt = document.querySelector('#create-project-prompt');
+  projectPrompt.innerHTML = '<button id="test1">+ New Project</button>';
+  const newProjectPromptButton = document.querySelector('#test1');
+  newProjectPromptButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    projectPrompt.innerHTML = '<input type="text" id="project-name1" /><br><button id="add">Add</button><button id="cancel">Cancel</button>';
+    const addButton = document.querySelector('#add');
+    const projectNameInput = document.querySelector('#project-name1');
+    addButton.addEventListener('click', () => {
+      e.preventDefault();
+      const newProject = Project(projectNameInput.value);
+      addToProjectList(newProject);
+      buildSideBar();
+      createNewProjectPrompt();
+    });
+    const cancelButton = document.querySelector('#cancel');
+    cancelButton.addEventListener('click', () => {
+      e.preventDefault();
+      createNewProjectPrompt();
+    });
+  });
+}
+
+const ui = {
+  addToProjectList, buildSideBar, addTask, createNewProjectPrompt,
+};
 
 export default ui;

@@ -54,6 +54,10 @@ body {
   background-color: lightgreen;
 }
 
+#new-task-form {
+  margin: 2rem;
+}
+
 .card {
   box-sizing: border-box;
   margin: 4rem;
