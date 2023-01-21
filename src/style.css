@@ -49,6 +49,22 @@ body {
   gap: 1rem;
 }
 
+#project-container {
+  width: 100%;
+}
+
+.project-card {
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-card:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
 #content-area {
   grid-area: 2 / 2 / 3 / 3;
   background-color: lightgreen;

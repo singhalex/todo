@@ -37,7 +37,7 @@ const buildSideBar = () => {
   let counter = 0;
   projectList.forEach((project) => {
     const projectCard = document.createElement('div');
-    projectCard.id = 'project-card';
+    projectCard.setAttribute('class', 'project-card');
     projectCard.dataset.index = counter;
     projectCard.innerText = project.getTitle();
 
