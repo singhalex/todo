@@ -13,8 +13,13 @@ const Project = (title) => {
     taskList.push(task);
   };
 
+  const deleteTaskFromList = (index) => {
+    // console.log(taskList[index]);
+    taskList.splice(index, 1);
+  };
+
   return {
-    getTitle, addTask, getTaskList, setDisplayed, getDisplayed,
+    getTitle, addTask, getTaskList, setDisplayed, getDisplayed, deleteTaskFromList,
   };
 };
 

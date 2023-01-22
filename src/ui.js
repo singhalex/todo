@@ -7,15 +7,36 @@ const taskArea = document.querySelector('#task-area');
 function clearTaskArea() {
   taskArea.innerHTML = '';
 }
+
 function buildTaskPage(index) {
   clearTaskArea();
 
+  // Displays the currently selected project title
+  const projectTitle = document.createElement('H3');
+  projectTitle.innerText = projectList.getList()[index].getTitle();
+  projectTitle.setAttribute('id', 'project-title');
+  taskArea.appendChild(projectTitle);
+
   // Loop through task list to build cards
+  let indexCounter = 0;
   projectList.getList()[index].getTaskList().forEach((task) => {
     const taskCard = document.createElement('div');
     taskCard.setAttribute('class', 'card');
+    taskCard.dataset.index = indexCounter;
     taskCard.innerText = task.getTitle();
+
+    const deleteTaskButton = document.createElement('button');
+    deleteTaskButton.setAttribute('class', 'delete-task');
+    deleteTaskButton.innerText = 'X';
+    deleteTaskButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      projectList.getList()[index].deleteTaskFromList(taskCard.dataset.index);
+      buildTaskPage(index);
+    });
+    taskCard.appendChild(deleteTaskButton);
+
     taskArea.appendChild(taskCard);
+    indexCounter += 1;
   });
 }
 
@@ -99,6 +120,10 @@ function createNewProjectPrompt() {
     });
   });
 }
+
+// const createNewTaskPrompt = () => {
+
+// };
 
 const ui = {
   buildSideBar, addTask, createNewProjectPrompt,
