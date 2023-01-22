@@ -30,7 +30,9 @@ const buildSideBar = () => {
     const projectCard = document.createElement('div');
     projectCard.setAttribute('class', 'project-card');
     projectCard.dataset.index = counter;
-    projectCard.innerText = project.getTitle();
+    const projectCardText = document.createElement('p');
+    projectCardText.innerText = project.getTitle();
+    projectCard.appendChild(projectCardText);
 
     projectCard.addEventListener('click', () => {
       buildTaskPage(projectCard.dataset.index);
@@ -43,6 +45,7 @@ const buildSideBar = () => {
     // Add a delete button and rebuild sidebar
     const deleteButton = document.createElement('button');
     deleteButton.innerText = 'X';
+    deleteButton.setAttribute('class', 'delete-project-button');
     projectCard.appendChild(deleteButton);
     deleteButton.addEventListener('click', (event) => {
       event.stopPropagation();
@@ -74,8 +77,8 @@ const addTask = () => {
 
 function createNewProjectPrompt() {
   const projectPrompt = document.querySelector('#create-project-prompt');
-  projectPrompt.innerHTML = '<button id="test1">＋ New Project</button>';
-  const newProjectPromptButton = document.querySelector('#test1');
+  projectPrompt.innerHTML = '<button id="new-project-button">＋ New Project</button>';
+  const newProjectPromptButton = document.querySelector('#new-project-button');
   newProjectPromptButton.addEventListener('click', (e) => {
     e.preventDefault();
     projectPrompt.innerHTML = '<input type="text" id="project-name" /><br><button id="add">Add</button><button id="cancel">Cancel</button>';
