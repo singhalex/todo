@@ -81,9 +81,10 @@ function createNewProjectPrompt() {
   const newProjectPromptButton = document.querySelector('#new-project-button');
   newProjectPromptButton.addEventListener('click', (e) => {
     e.preventDefault();
-    projectPrompt.innerHTML = '<input type="text" id="project-name" /><br><button id="add">Add</button><button id="cancel">Cancel</button>';
+    projectPrompt.innerHTML = '<input type="text" placeholder="Project Name" id="project-name" /><br><div id="button-container"><button id="add">Add</button><button id="cancel">Cancel</button></div>';
     const addButton = document.querySelector('#add');
     const projectNameInput = document.querySelector('#project-name');
+    projectNameInput.focus();
     addButton.addEventListener('click', () => {
       e.preventDefault();
       const newProject = Project(projectNameInput.value);
