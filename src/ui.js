@@ -23,7 +23,10 @@ function buildTaskPage(index) {
     const taskCard = document.createElement('div');
     taskCard.setAttribute('class', 'card');
     taskCard.dataset.index = indexCounter;
-    taskCard.innerText = task.getTitle();
+
+    const taskTitle = document.createElement('p');
+    taskTitle.innerText = task.getTitle();
+    taskCard.appendChild(taskTitle);
 
     const deleteTaskButton = document.createElement('button');
     deleteTaskButton.setAttribute('class', 'delete-task');

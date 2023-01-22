@@ -1,3 +1,7 @@
+:root {
+  --border-radius: 6px;
+}
+
 html {
   box-sizing: border-box;
   font-size: 16px;
@@ -60,8 +64,8 @@ body {
   margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
-  border-radius: 6px;
-  align-items: center;
+  border-radius: var(--border-radius);
+  align-items: stretch;
   box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.6);
@@ -81,12 +85,12 @@ body {
 }
 
 .delete-project-button {
-  height: 50px;
+  cursor: pointer;
   display: none;
   background: none;
   border: none;
   border-radius: 0 6px 6px 0;
-  padding: 1rem;
+  padding-inline: 1rem;
   padding-left: 1.25rem;
 }
 
@@ -105,7 +109,7 @@ body {
   border: none;
   width: 100%;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: var(--border-radius);
 }
 
 #new-project-button:hover {
@@ -118,7 +122,7 @@ body {
   box-sizing: border-box;
   margin-bottom: 0.5rem;
   outline: none;
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.6);
@@ -134,7 +138,7 @@ body {
   padding: 0.5rem;
   flex: 1;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.6);
@@ -156,11 +160,37 @@ body {
 .card {
   box-sizing: border-box;
   margin-block: 1rem;
-  padding: 2rem;
+  height: fit-content;
   width: 100%;
-  height: 2rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
   background-color: rgb(255, 255, 17);
   box-shadow: 6px 6px 6px 0px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: 6px 6px 6px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 6px 6px 6px 0px rgba(0, 0, 0, 0.6);
+}
+
+.card > p {
+  margin: 2rem;
+  box-sizing: border-box;
+}
+
+.delete-task {
+  display: none;
+  background: none;
+  padding-inline: 2rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0 6px 6px 0;
+}
+
+.card:hover > .delete-task {
+  display: inline-block;
+}
+
+.delete-task:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  font-weight: bold;
 }
