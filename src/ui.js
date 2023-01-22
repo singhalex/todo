@@ -3,7 +3,7 @@ import Project from './project';
 import projectList from './projectlist';
 
 // Populate the task area with a project's task list
-const taskArea = document.querySelector('#content-area');
+const taskArea = document.querySelector('#task-area');
 function clearTaskArea() {
   taskArea.innerHTML = '';
 }
@@ -74,7 +74,7 @@ const addTask = () => {
 
 function createNewProjectPrompt() {
   const projectPrompt = document.querySelector('#create-project-prompt');
-  projectPrompt.innerHTML = '<button id="test1">+ New Project</button>';
+  projectPrompt.innerHTML = '<button id="test1">＋ New Project</button>';
   const newProjectPromptButton = document.querySelector('#test1');
   newProjectPromptButton.addEventListener('click', (e) => {
     e.preventDefault();

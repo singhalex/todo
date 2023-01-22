@@ -54,10 +54,11 @@ body {
 }
 
 .project-card {
-  width: 100%;
+  width: 90%;
   padding: 0.5rem;
   display: flex;
   justify-content: space-between;
+  border-radius: 6px;
 }
 
 .project-card:hover {
@@ -74,9 +75,13 @@ body {
   margin: 2rem;
 }
 
+#content-area {
+  padding: 3rem;
+}
+
 .card {
   box-sizing: border-box;
-  margin: 4rem;
+  margin-block: 1rem;
   padding: 2rem;
   width: 300px;
   height: 300px;
