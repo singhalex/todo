@@ -26,14 +26,24 @@
       <div id="this-week">
         <a href="#">This Week</a>
       </div>
-      <h1>Projects</h1>
+      <h2>Projects</h2>
       <div id="project-container"></div>
       <div id="create-project-prompt"></div>
     </div>
     <div id="content-area">
       <div id="task-area"></div>
       <form action="" id="">
-        <input type="text" name="" id="task-input" />
+        <label for="task-input" required>Task Name</label>
+        <input type="text" name="task_input" id="task-input" />
+        <label for="due-date">Due Date</label>
+        <input type="date" name="" id="due-date" />
+        <input
+          type="checkbox"
+          id="high-priority"
+          name="priority"
+          value="high-priority"
+        />
+        <label for="high-priortiy">High Priority</label>
         <button id="add-task-button">Add Task</button>
       </form>
     </div>

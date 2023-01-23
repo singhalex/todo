@@ -1,6 +1,6 @@
 import Task from './task';
 import Project from './project';
-import projectList from './projectlist';
+import projectList from './project-list';
 
 // Populate the task area with a project's task list
 const taskArea = document.querySelector('#task-area');
@@ -12,7 +12,7 @@ function buildTaskPage(index) {
   clearTaskArea();
 
   // Displays the currently selected project title
-  const projectTitle = document.createElement('H3');
+  const projectTitle = document.createElement('h2');
   projectTitle.innerText = projectList.getList()[index].getTitle();
   projectTitle.setAttribute('id', 'project-title');
   taskArea.appendChild(projectTitle);
@@ -105,7 +105,7 @@ function createNewProjectPrompt() {
   const newProjectPromptButton = document.querySelector('#new-project-button');
   newProjectPromptButton.addEventListener('click', (e) => {
     e.preventDefault();
-    projectPrompt.innerHTML = '<input type="text" placeholder="Project Name" id="project-name" /><br><div id="button-container"><button id="add">Add</button><button id="cancel">Cancel</button></div>';
+    projectPrompt.innerHTML = '<form action=""><input type="text" placeholder="Project Name" id="project-name" /><br><div id="button-container"><button id="add">Add</button><button id="cancel">Cancel</button></div></form>';
     const addButton = document.querySelector('#add');
     const projectNameInput = document.querySelector('#project-name');
     projectNameInput.focus();
