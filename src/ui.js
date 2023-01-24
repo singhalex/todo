@@ -120,7 +120,13 @@ function createNewProjectPrompt() {
   const newProjectPromptButton = document.querySelector('#new-project-button');
   newProjectPromptButton.addEventListener('click', (e) => {
     e.preventDefault();
-    projectPrompt.innerHTML = '<form action=""><input type="text" placeholder="Project Name" id="project-name" /><br><div id="button-container"><button id="add">Add</button><button id="cancel">Cancel</button></div></form>';
+    projectPrompt.innerHTML = `<form action="">
+        <input type="text" placeholder="Project Name" id="project-name" /><br>
+          <div id="button-container">
+            <button id="add">Add</button>
+            <button id="cancel">Cancel</button>
+          </div>
+      </form>`;
     const projectNameInput = document.querySelector('#project-name');
     projectNameInput.focus();
     const addButton = document.querySelector('#add');
@@ -145,7 +151,15 @@ function createNewTaskPrompt() {
   const newTaskButton = document.querySelector('#new-task-button');
   newTaskButton.addEventListener('click', (e) => {
     e.preventDefault();
-    taskPrompt.innerHTML = '<form action="" id=""><label for="task-input" required="">Task Name</label> <input name="task_input" id="task-input"> <label for="due-date">Due Date</label> <input type="date" name="" id="due-date"> <input type="checkbox" id="high-priority" name="priority" value="high-priority"> <label for="high-priority">High Priority</label> <button id="add-task-button">Add Task</button></form>';
+    taskPrompt.innerHTML = `<form action="" id="">
+        <label for="task-input" required="">Task Name</label>
+        <input name="task_input" id="task-input">
+        <label for="due-date">Due Date</label>
+        <input type="date" name="" id="due-date">
+        <label for="high-priority">High Priority</label>
+        <input type="checkbox" id="high-priority" name="priority" value="high-priority">
+        <button id="add-task-button">Add Task</button>
+      </form>`;
     const addTaskButton = document.querySelector('#add-task-button');
     addTaskButton.addEventListener('click', (e) => {
       e.preventDefault();
