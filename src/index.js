@@ -6,12 +6,11 @@ import ui from './ui';
 import projectList from './project-list';
 
 // Create Inbox
-const inbox = Project('Inbox');
+const inbox = Project('Inbox', true);
 projectList.addToList(inbox);
-ui.buildSideBar();
-ui.buildTaskPage(0);
-projectList.getSpecificProject(0).setDisplayed(true);
 
 // Initialize page
+ui.buildSideBar();
+ui.buildTaskPage(0);
 ui.createNewProjectPrompt();
 ui.createNewTaskPrompt();

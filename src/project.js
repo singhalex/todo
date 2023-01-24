@@ -1,11 +1,11 @@
-const Project = (title) => {
+const Project = (title, displayed = false) => {
   const taskList = [];
   const getTaskList = () => taskList;
 
-  let displayed = false;
-  const getDisplayed = () => displayed;
+  let isDisplayed = displayed;
+  const getDisplayed = () => isDisplayed;
   const setDisplayed = (boolean) => {
-    displayed = boolean;
+    isDisplayed = boolean;
   };
   const getTitle = () => title;
 

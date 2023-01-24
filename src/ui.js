@@ -132,7 +132,7 @@ function createNewProjectPrompt() {
   newProjectPromptButton.addEventListener('click', (e) => {
     e.preventDefault();
     projectPrompt.innerHTML = `<form action="">
-        <input type="text" placeholder="Project Name" id="project-name" />
+        <input type="text" placeholder="Project Name" id="project-name" required/>
           <div id="button-container">
             <button id="add">Add</button>
             <button id="cancel">Cancel</button>
@@ -142,11 +142,13 @@ function createNewProjectPrompt() {
     projectNameInput.focus();
     const addButton = document.querySelector('#add');
     addButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      const newProject = Project(projectNameInput.value);
-      projectList.addToList(newProject);
-      buildSideBar();
-      createNewProjectPrompt();
+      if (projectNameInput.value !== '') {
+        e.preventDefault();
+        const newProject = Project(projectNameInput.value);
+        projectList.addToList(newProject);
+        buildSideBar();
+        createNewProjectPrompt();
+      }
     });
     const cancelButton = document.querySelector('#cancel');
     cancelButton.addEventListener('click', (e) => {
@@ -156,33 +158,39 @@ function createNewProjectPrompt() {
   });
 }
 
+const taskPrompt = document.querySelector('#new-task-prompt');
 function createNewTaskPrompt() {
-  const taskPrompt = document.querySelector('#new-task-prompt');
   taskPrompt.innerHTML = '<button id="new-task-button">+ New Task</button>';
   const newTaskButton = document.querySelector('#new-task-button');
   newTaskButton.addEventListener('click', (e) => {
     e.preventDefault();
     taskPrompt.innerHTML = `<form action="" id="">
-        <label for="task-input" required="">Task Name</label>
-        <input name="task_input" id="task-input">
+        <label for="task-input" "">Task Name</label>
+        <input name="task_input" id="task-input" required>
         <label for="due-date">Due Date</label>
         <input type="date" name="" id="due-date">
         <label for="high-priority">High Priority</label>
         <input type="checkbox" id="high-priority" name="priority" value="high-priority">
-        <button id="add-task-button">Add Task</button>
+        <button id="add-task-button">Add</button>
+        <button id="cancel-button">Cancel</button>
       </form>`;
+
     const addTaskButton = document.querySelector('#add-task-button');
-    addTaskButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      addTask();
+    addTaskButton.addEventListener('click', (event) => {
+      if (document.querySelector('#task-input').value !== '') {
+        event.preventDefault();
+        addTask();
+        createNewTaskPrompt();
+      }
+    });
+
+    const cancelTask = document.querySelector('#cancel-button');
+    cancelTask.addEventListener('click', (event) => {
+      event.preventDefault();
       createNewTaskPrompt();
     });
   });
 }
-
-// const createNewTaskPrompt = () => {
-
-// };
 
 const ui = {
   buildSideBar, buildTaskPage, addTask, createNewProjectPrompt, createNewTaskPrompt,
