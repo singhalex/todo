@@ -86,18 +86,21 @@ const buildSideBar = () => {
     });
 
     // Add a delete button and rebuild sidebar
-    const deleteButton = document.createElement('button');
-    deleteButton.innerText = 'X';
-    deleteButton.setAttribute('class', 'delete-project-button');
-    projectCard.appendChild(deleteButton);
-    deleteButton.addEventListener('click', (event) => {
-      event.stopPropagation();
-      if (projectList.getList()[projectCard.dataset.index].getDisplayed() === true) {
-        clearTaskArea();
-      }
-      projectList.deleteProject(projectCard.dataset.index);
-      buildSideBar();
-    });
+    if (project.getTitle() !== 'Inbox') {
+      const deleteButton = document.createElement('button');
+      deleteButton.innerText = 'X';
+      deleteButton.setAttribute('class', 'delete-project-button');
+      projectCard.appendChild(deleteButton);
+      deleteButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (projectList.getList()[projectCard.dataset.index].getDisplayed() === true) {
+          buildTaskPage(0);
+          projectList.getSpecificProject(0).setDisplayed(true);
+        }
+        projectList.deleteProject(projectCard.dataset.index);
+        buildSideBar();
+      });
+    }
 
     sideBar.appendChild(projectCard);
     counter += 1;
@@ -129,7 +132,7 @@ function createNewProjectPrompt() {
   newProjectPromptButton.addEventListener('click', (e) => {
     e.preventDefault();
     projectPrompt.innerHTML = `<form action="">
-        <input type="text" placeholder="Project Name" id="project-name" /><br>
+        <input type="text" placeholder="Project Name" id="project-name" />
           <div id="button-container">
             <button id="add">Add</button>
             <button id="cancel">Cancel</button>
@@ -182,7 +185,7 @@ function createNewTaskPrompt() {
 // };
 
 const ui = {
-  buildSideBar, addTask, createNewProjectPrompt, createNewTaskPrompt,
+  buildSideBar, buildTaskPage, addTask, createNewProjectPrompt, createNewTaskPrompt,
 };
 
 export default ui;
