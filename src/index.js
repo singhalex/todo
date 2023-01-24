@@ -12,3 +12,4 @@ addTaskButton.addEventListener('click', (e) => {
 
 // Initialize page
 ui.createNewProjectPrompt();
+ui.createNewTaskPrompt();

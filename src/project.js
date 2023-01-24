@@ -4,8 +4,8 @@ const Project = (title) => {
 
   let displayed = false;
   const getDisplayed = () => displayed;
-  const setDisplayed = (trueFalse) => {
-    displayed = trueFalse;
+  const setDisplayed = (boolean) => {
+    displayed = boolean;
   };
   const getTitle = () => title;
 
@@ -14,7 +14,6 @@ const Project = (title) => {
   };
 
   const deleteTaskFromList = (index) => {
-    // console.log(taskList[index]);
     taskList.splice(index, 1);
   };
 
