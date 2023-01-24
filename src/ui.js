@@ -26,10 +26,12 @@ function buildTaskPage(indexOfProject) {
     taskCard.setAttribute('class', 'card');
     taskCard.dataset.index = indexCounter;
 
+    // Add the title to the task card
     const taskTitle = document.createElement('p');
     taskTitle.innerText = task.getTitle();
     taskCard.appendChild(taskTitle);
 
+    // Add the due date to the task card
     const taskDate = document.createElement('p');
     if (task.getDueDate() === '') {
       taskDate.innerText = task.getDueDate();
@@ -39,6 +41,12 @@ function buildTaskPage(indexOfProject) {
     }
     taskCard.appendChild(taskDate);
 
+    // Style card if high priority
+    if (task.getPriority() === true) {
+      taskCard.classList.add('high-priority');
+    }
+
+    // Add delete button to the task card
     const deleteTaskButton = document.createElement('button');
     deleteTaskButton.setAttribute('class', 'delete-task');
     deleteTaskButton.innerText = 'X';
