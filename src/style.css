@@ -3,20 +3,21 @@
   --thick-border: 4px solid black;
 }
 
-html {
-  box-sizing: border-box;
-  font-size: 16px;
-}
-
 * {
   margin: 0;
   padding: 0;
   font-weight: normal;
 }
 
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+  height: 100%;
+}
+
 body {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: grid;
   grid-template-columns: 250px 1fr;
   grid-template-rows: 100px 1fr;
@@ -163,6 +164,10 @@ input {
   background-color: rgb(255, 58, 58);
 }
 
+#today {
+  padding: 1rem;
+}
+
 #content-area {
   grid-area: 2 / 2 / 3 / 3;
   background-color: lightgreen;
@@ -247,6 +252,7 @@ input {
   align-items: stretch;
   justify-content: space-between;
   gap: 2rem;
+  margin-top: 1rem;
 }
 
 #task-inputs {

@@ -9,19 +9,10 @@ function clearTaskArea() {
   taskArea.innerHTML = '';
 }
 
-function buildTaskPage(indexOfProject) {
-  clearTaskArea();
-  const currentProject = projectList.getList()[indexOfProject];
-
-  // Displays the currently selected project title
-  const projectTitle = document.createElement('h2');
-  projectTitle.innerText = currentProject.getTitle();
-  projectTitle.setAttribute('id', 'project-title');
-  taskArea.appendChild(projectTitle);
-
-  // Loop through task list to build cards
+// Refactoring card display
+function buildTaskCard(taskArray) {
   let indexCounter = 0;
-  currentProject.getTaskList().forEach((task) => {
+  taskArray.forEach((task) => {
     const taskCard = document.createElement('div');
     taskCard.setAttribute('class', 'card');
     taskCard.dataset.index = indexCounter;
@@ -60,6 +51,20 @@ function buildTaskPage(indexOfProject) {
     taskArea.appendChild(taskCard);
     indexCounter += 1;
   });
+}
+
+function buildTaskPage(indexOfProject) {
+  clearTaskArea();
+  const currentProject = projectList.getList()[indexOfProject];
+
+  // Displays the currently selected project title
+  const projectTitle = document.createElement('h2');
+  projectTitle.innerText = currentProject.getTitle();
+  projectTitle.setAttribute('id', 'project-title');
+  taskArea.appendChild(projectTitle);
+
+  // Loop through task list to build cards
+  buildTaskCard(currentProject.getTaskList());
 }
 
 function createNewProjectPrompt() {

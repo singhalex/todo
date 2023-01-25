@@ -14,3 +14,14 @@ ui.buildSideBar();
 ui.buildTaskPage(0);
 ui.createNewProjectPrompt();
 ui.createNewTaskPrompt();
+
+const today = document.querySelector('#today');
+today.addEventListener('click', () => {
+  projectList.getList().forEach((project) => {
+    project.getTaskList().forEach((task) => {
+      if (task.getDueDate()) {
+        console.log(task.getDueDate());
+      }
+    });
+  });
+});
