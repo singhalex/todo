@@ -24,51 +24,53 @@ function buildTaskPage(indexOfProject) {
   setTaskTitle(currentProject.getTitle());
 
   // Loop through task list to build cards
-  buildTaskCard(currentProject.getTaskList(), currentProject, indexOfProject);
+  let indexCounter = 0;
+  currentProject.getTaskList().forEach((task) => {
+    buildTaskCard(task, currentProject, indexOfProject, indexCounter);
+    indexCounter += 1;
+  });
 }
 
 // Refactoring card display
-function buildTaskCard(taskArray, currentProject, indexOfProject) {
-  let indexCounter = 0;
-  taskArray.forEach((task) => {
-    const taskCard = document.createElement('div');
-    taskCard.setAttribute('class', 'card');
-    taskCard.dataset.index = indexCounter;
+function buildTaskCard(task, currentProject, indexOfProject, indexCounter) {
+  const taskCard = document.createElement('div');
+  taskCard.setAttribute('class', 'card');
+  taskCard.dataset.project = indexOfProject;
+  taskCard.dataset.index = indexCounter;
 
-    // Add the title to the task card
-    const taskTitle = document.createElement('p');
-    taskTitle.innerText = task.getTitle();
-    taskCard.appendChild(taskTitle);
+  // Add the title to the task card
+  const taskTitle = document.createElement('p');
+  taskTitle.innerText = task.getTitle();
+  taskCard.appendChild(taskTitle);
 
-    // Add the due date to the task card
-    const taskDate = document.createElement('p');
-    if (task.getDueDate() === '') {
-      taskDate.innerText = task.getDueDate();
-    }
-    if (task.getDueDate() !== '') {
-      taskDate.innerText = format(parseISO(task.getDueDate()), 'MM/dd/yy');
-    }
-    taskCard.appendChild(taskDate);
+  // Add the due date to the task card
+  const taskDate = document.createElement('p');
+  if (task.getDueDate() === '') {
+    taskDate.innerText = task.getDueDate();
+  }
+  if (task.getDueDate() !== '') {
+    taskDate.innerText = format(parseISO(task.getDueDate()), 'MM/dd/yy');
+  }
+  taskCard.appendChild(taskDate);
 
-    // Style card if high priority
-    if (task.getPriority() === true) {
-      taskCard.classList.add('high-priority');
-    }
+  // Style card if high priority
+  if (task.getPriority() === true) {
+    taskCard.classList.add('high-priority');
+  }
 
-    // Add delete button to the task card
-    const deleteTaskButton = document.createElement('button');
-    deleteTaskButton.setAttribute('class', 'delete-task');
-    deleteTaskButton.innerText = 'X';
-    deleteTaskButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      currentProject.deleteTaskFromList(taskCard.dataset.index);
-      buildTaskPage(indexOfProject);
-    });
-    taskCard.appendChild(deleteTaskButton);
-
-    taskArea.appendChild(taskCard);
-    indexCounter += 1;
+  // Add delete button to the task card
+  const deleteTaskButton = document.createElement('button');
+  deleteTaskButton.setAttribute('class', 'delete-task');
+  deleteTaskButton.innerText = 'X';
+  deleteTaskButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const currentTask = document.querySelector(`[data-project="${indexOfProject}"][data-index="${indexCounter}"]`);
+    currentTask.remove();
+    currentProject.deleteTaskFromList(taskCard.dataset.index);
   });
+  taskCard.appendChild(deleteTaskButton);
+
+  taskArea.appendChild(taskCard);
 }
 
 function createNewProjectPrompt() {
@@ -219,17 +221,19 @@ function createNewTaskPrompt() {
 
 const today = document.querySelector('#today');
 today.addEventListener('click', () => {
+  taskPrompt.innerHTML = '';
   clearTaskArea();
   setTaskTitle('Today');
   let projectCounter = 0;
-  console.log(projectCounter);
+
   projectList.getList().forEach((project) => {
-    console.log(project.getTitle());
+    let indexCounter = 0;
+
     project.getTaskList().forEach((task) => {
       if (task.getDueDate()) {
-        console.log(task.getTitle());
-        console.log(task.getDueDate());
+        buildTaskCard(task, projectList.getList()[projectCounter], projectCounter, indexCounter);
       }
+      indexCounter += 1;
     });
     projectCounter += 1;
   });
