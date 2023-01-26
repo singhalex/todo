@@ -9,8 +9,26 @@ function clearTaskArea() {
   taskArea.innerHTML = '';
 }
 
+function setTaskTitle(title) {
+  const projectTitle = document.createElement('h2');
+  projectTitle.innerText = title;
+  projectTitle.setAttribute('id', 'project-title');
+  taskArea.appendChild(projectTitle);
+}
+
+function buildTaskPage(indexOfProject) {
+  clearTaskArea();
+  const currentProject = projectList.getList()[indexOfProject];
+
+  // Displays the currently selected project title
+  setTaskTitle(currentProject.getTitle());
+
+  // Loop through task list to build cards
+  buildTaskCard(currentProject.getTaskList(), currentProject, indexOfProject);
+}
+
 // Refactoring card display
-function buildTaskCard(taskArray) {
+function buildTaskCard(taskArray, currentProject, indexOfProject) {
   let indexCounter = 0;
   taskArray.forEach((task) => {
     const taskCard = document.createElement('div');
@@ -51,20 +69,6 @@ function buildTaskCard(taskArray) {
     taskArea.appendChild(taskCard);
     indexCounter += 1;
   });
-}
-
-function buildTaskPage(indexOfProject) {
-  clearTaskArea();
-  const currentProject = projectList.getList()[indexOfProject];
-
-  // Displays the currently selected project title
-  const projectTitle = document.createElement('h2');
-  projectTitle.innerText = currentProject.getTitle();
-  projectTitle.setAttribute('id', 'project-title');
-  taskArea.appendChild(projectTitle);
-
-  // Loop through task list to build cards
-  buildTaskCard(currentProject.getTaskList());
 }
 
 function createNewProjectPrompt() {
@@ -212,6 +216,24 @@ function createNewTaskPrompt() {
     });
   });
 }
+
+const today = document.querySelector('#today');
+today.addEventListener('click', () => {
+  clearTaskArea();
+  setTaskTitle('Today');
+  let projectCounter = 0;
+  console.log(projectCounter);
+  projectList.getList().forEach((project) => {
+    console.log(project.getTitle());
+    project.getTaskList().forEach((task) => {
+      if (task.getDueDate()) {
+        console.log(task.getTitle());
+        console.log(task.getDueDate());
+      }
+    });
+    projectCounter += 1;
+  });
+});
 
 const ui = {
   buildSideBar, buildTaskPage, addTask, createNewProjectPrompt, createNewTaskPrompt,
