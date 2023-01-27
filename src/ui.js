@@ -1,4 +1,5 @@
 import parseISO from 'date-fns/parseISO';
+import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 import Task from './task';
 import Project from './project';
@@ -242,6 +243,7 @@ todayButton.addEventListener('click', () => {
 
 const thisWeekButton = document.querySelector('#this-week');
 thisWeekButton.addEventListener('click', () => {
+  const today = new Date();
   taskPrompt.innerHTML = '';
   clearTaskArea();
   setTaskTitle('This Week');
@@ -251,7 +253,9 @@ thisWeekButton.addEventListener('click', () => {
     let indexCounter = 0;
 
     project.getTaskList().forEach((task) => {
-      if (task.getDueDate()) {
+      const difference = parse(task.getDueDate(), 'yyyy-MM-dd', new Date()).getTime() - today.getTime();
+      const totalDays = Math.ceil(difference / (1000 * 3600 * 24));
+      if (totalDays < 7 && totalDays >= 0) {
         buildTaskCard(task, projectList.getList()[projectCounter], projectCounter, indexCounter);
       }
       indexCounter += 1;
