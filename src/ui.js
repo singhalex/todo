@@ -219,11 +219,32 @@ function createNewTaskPrompt() {
   });
 }
 
-const today = document.querySelector('#today');
-today.addEventListener('click', () => {
+const todayButton = document.querySelector('#today');
+todayButton.addEventListener('click', () => {
+  const today = format(new Date(), 'yyyy-MM-dd');
   taskPrompt.innerHTML = '';
   clearTaskArea();
   setTaskTitle('Today');
+  let projectCounter = 0;
+
+  projectList.getList().forEach((project) => {
+    let indexCounter = 0;
+
+    project.getTaskList().forEach((task) => {
+      if (task.getDueDate() === today) {
+        buildTaskCard(task, projectList.getList()[projectCounter], projectCounter, indexCounter);
+      }
+      indexCounter += 1;
+    });
+    projectCounter += 1;
+  });
+});
+
+const thisWeekButton = document.querySelector('#this-week');
+thisWeekButton.addEventListener('click', () => {
+  taskPrompt.innerHTML = '';
+  clearTaskArea();
+  setTaskTitle('This Week');
   let projectCounter = 0;
 
   projectList.getList().forEach((project) => {
@@ -235,9 +256,28 @@ today.addEventListener('click', () => {
       }
       indexCounter += 1;
     });
-    projectCounter += 1;
+    projectCounter = +1;
   });
 });
+
+// function timeFilter(filterName, timeFrame) {
+//   taskPrompt.innerHTML = '';
+//   clearTaskArea();
+//   setTaskTitle('Today');
+//   let projectCounter = 0;
+
+//   projectList.getList().forEach((project) => {
+//     let indexCounter = 0;
+
+//     project.getTaskList().forEach((task) => {
+//       if (task.getDueDate() === today) {
+//         buildTaskCard(task, projectList.getList()[projectCounter], projectCounter, indexCounter);
+//       }
+//       indexCounter += 1;
+//     });
+//     projectCounter += 1;
+//   });
+// }
 
 const ui = {
   buildSideBar, buildTaskPage, addTask, createNewProjectPrompt, createNewTaskPrompt,

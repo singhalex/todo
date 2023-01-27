@@ -59,7 +59,9 @@ body {
   width: 100%;
 }
 
-.project-card {
+.project-card,
+#today,
+#this-week {
   background-color: hsl(0, 79%, 85%);
   box-sizing: border-box;
   height: fit-content;
@@ -75,7 +77,9 @@ body {
   box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 1);
 }
 
-.project-card:hover {
+.project-card:hover,
+#today:hover,
+#this-week:hover {
   background-color: rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
@@ -164,7 +168,8 @@ input {
   background-color: rgb(255, 58, 58);
 }
 
-#today {
+#today,
+#this-week {
   padding: 1rem;
 }
 
