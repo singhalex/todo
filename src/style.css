@@ -220,9 +220,14 @@ input {
   cursor: pointer;
 }
 
-.card > p {
-  margin: 2rem;
+.task-text {
   box-sizing: border-box;
+  margin: 2rem;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .delete-task {

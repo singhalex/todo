@@ -1,16 +1,17 @@
 import './style.css';
-import { formatDistance, subDays } from 'date-fns';
 import Task from './task';
 import Project from './project';
 import ui from './ui';
 import projectList from './project-list';
+import store from './store';
 
 // Create Inbox
 const inbox = Project('Inbox', true);
 projectList.addToList(inbox);
 
 // Initialize page
-ui.buildSideBar();
-ui.buildTaskPage(0);
+store.loadLocal(Project, Task, projectList);
 ui.createNewProjectPrompt();
 ui.createNewTaskPrompt();
+ui.buildTaskPage(0);
+ui.buildSideBar();

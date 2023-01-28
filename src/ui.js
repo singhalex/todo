@@ -4,6 +4,7 @@ import format from 'date-fns/format';
 import Task from './task';
 import Project from './project';
 import projectList from './project-list';
+import store from './store';
 
 const taskArea = document.querySelector('#task-area');
 function clearTaskArea() {
@@ -39,10 +40,14 @@ function buildTaskCard(task, currentProject, indexOfProject, indexCounter) {
   taskCard.dataset.project = indexOfProject;
   taskCard.dataset.index = indexCounter;
 
+  const taskText = document.createElement('div');
+  taskText.setAttribute('class', 'task-text');
+  taskCard.appendChild(taskText);
+
   // Add the title to the task card
   const taskTitle = document.createElement('p');
   taskTitle.innerText = task.getTitle();
-  taskCard.appendChild(taskTitle);
+  taskText.appendChild(taskTitle);
 
   // Add the due date to the task card
   const taskDate = document.createElement('p');
@@ -52,7 +57,7 @@ function buildTaskCard(task, currentProject, indexOfProject, indexCounter) {
   if (task.getDueDate() !== '') {
     taskDate.innerText = format(parseISO(task.getDueDate()), 'MM/dd/yy');
   }
-  taskCard.appendChild(taskDate);
+  taskText.appendChild(taskDate);
 
   // Style card if high priority
   if (task.getPriority() === true) {
@@ -68,6 +73,7 @@ function buildTaskCard(task, currentProject, indexOfProject, indexCounter) {
     const currentTask = document.querySelector(`[data-project="${indexOfProject}"][data-index="${indexCounter}"]`);
     currentTask.remove();
     currentProject.deleteTaskFromList(taskCard.dataset.index);
+    store.saveLocal(projectList);
   });
   taskCard.appendChild(deleteTaskButton);
 
@@ -97,6 +103,7 @@ function createNewProjectPrompt() {
         projectList.addToList(newProject);
         buildSideBar();
         createNewProjectPrompt();
+        store.saveLocal(projectList);
       }
     });
     const cancelButton = document.querySelector('#cancel');
@@ -145,6 +152,7 @@ const buildSideBar = () => {
         }
         projectList.deleteProject(projectCard.dataset.index);
         buildSideBar();
+        store.saveLocal(projectList);
       });
     }
 
@@ -209,6 +217,7 @@ function createNewTaskPrompt() {
         event.preventDefault();
         addTask();
         createNewTaskPrompt();
+        store.saveLocal(projectList);
       }
     });
 
@@ -263,25 +272,6 @@ thisWeekButton.addEventListener('click', () => {
     projectCounter = +1;
   });
 });
-
-// function timeFilter(filterName, timeFrame) {
-//   taskPrompt.innerHTML = '';
-//   clearTaskArea();
-//   setTaskTitle('Today');
-//   let projectCounter = 0;
-
-//   projectList.getList().forEach((project) => {
-//     let indexCounter = 0;
-
-//     project.getTaskList().forEach((task) => {
-//       if (task.getDueDate() === today) {
-//         buildTaskCard(task, projectList.getList()[projectCounter], projectCounter, indexCounter);
-//       }
-//       indexCounter += 1;
-//     });
-//     projectCounter += 1;
-//   });
-// }
 
 const ui = {
   buildSideBar, buildTaskPage, addTask, createNewProjectPrompt, createNewTaskPrompt,
